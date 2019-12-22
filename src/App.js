@@ -6,19 +6,25 @@ import Home from './Components/Home';
 import Inbox from './Components/Inbox';
 import Span from './Components/Span';
 import Sent from './Components/Sent';
+import mailList from './Data/mails.json'
+
+const inbox = mailList;
+const sent = [];
+const span = [];
 
 
 
 class App extends Component {
   
   render () {
+    
     return (
       <div className="App">
         
         <Router>
-          <SideBar  />
+          <SideBar  inbox={inbox} sent={sent} span={span} />
           <Switch>
-          <Route exact path="/" component={Home}/>
+            <Route exact path="/" component={Home}/>
             <Route path="/inbox" component={Inbox}/>
             <Route path="/sent"  component={Sent}/>
             <Route path="/span" component={Span}/>
