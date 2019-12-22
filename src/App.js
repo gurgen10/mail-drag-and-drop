@@ -8,10 +8,11 @@ import Span from './Components/Span';
 import Sent from './Components/Sent';
 import mailList from './Data/mails.json'
 
+//https://react-dnd.github.io/react-dnd/docs/tutorial#setup
+
 const inbox = mailList;
 const sent = [];
 const span = [];
-
 
 
 class App extends Component {
