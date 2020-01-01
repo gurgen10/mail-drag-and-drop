@@ -1,22 +1,36 @@
-import React, { Component } from 'react';
+import React, { Component, useContext } from 'react';
+import { Droppable } from 'react-beautiful-dnd';
 import MailItem from '../MailItem';
+import Context from '../../context';
 
-export default class Inbox extends Component {
+class MyInbox extends Component {
     render() {
-        const { inbox } = this.props.location.state;
-        console.log(this.props);
-        const mailList = inbox.map(mail=> {
-            return (<MailItem key={mail.id} mail={mail}/>)
+        const { inbox } = this.props;
+        const mailList = inbox.map( (mail, index)=> {
+            return (<MailItem key={mail.id} mail={mail} index={index}/>)
         })
         
-        return (
-            <div>
+        return ( 
+            <>
                 <h2>Inbox</h2>
-                <ul>
-                    {inbox.length ? mailList : (<h3>inbox is empty</h3>)}
-
-                </ul>
-            </div>
+                <Droppable droppableId={'inbox'} isDropDisabled={false}>
+                    {provided => (
+                        <ul 
+                        ref={provided.innerRef} 
+                        {...provided.droppableProps}>
+                            {inbox.length ? mailList : (<h3>inbox is empty</h3>)}
+                        {provided.placeholder}
+                        </ul>
+                    )}
+                </Droppable>
+            </>
         )
     }
 }
+
+ function Inbox() {
+    let { inbox } = useContext(Context);
+    return <MyInbox inbox={inbox}></MyInbox>
+  };
+
+  export default Inbox;

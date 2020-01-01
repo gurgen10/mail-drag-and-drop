@@ -12,6 +12,7 @@
     "bootstrap": "^4.4.1",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
+    "react-beautiful-dnd": "^12.2.0",
     "react-bootstrap": "^1.0.0-beta.16",
     "react-bootstrap-sidebar": "0.0.1",
     "react-dnd": "^10.0.2",

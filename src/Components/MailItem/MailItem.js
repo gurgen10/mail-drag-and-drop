@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import  './MailItem.css';
+import { Draggable } from 'react-beautiful-dnd';
+
 
 export default class MailItem extends Component {
     state = {
@@ -14,19 +16,34 @@ export default class MailItem extends Component {
 
     }
     render() {
-        const { title, desc, date } = this.props.mail
+        
+        const {id, title, desc, date } = this.props.mail
+        
         return (
-            <li className="mail-item">
-                <div>
-                    <label className="container">
-                        <input type="checkbox" checked={this.state.checked} onChange={this.changeCheckedStatus}/>
-                        <span className="checkmark"></span>
-                    </label>
-                </div>
-                <div>{title}</div>
-                <div>{desc}</div>
-                <div>{date}</div>                 
-            </li>
+            
+            <Draggable 
+                draggableId={id} 
+                index={this.props.index}
+                >
+                {provided => (
+                    <li 
+                    {...provided.dragHandleProps}
+                    {...provided.draggableProps}
+                    ref={provided.innerRef} className="mail-item" >
+                    <div>
+                        <label className="container">
+                            <input type="checkbox" checked={this.state.checked} onChange={this.changeCheckedStatus}/>
+                            <span className="checkmark"></span>
+                        </label>
+                    </div>
+                    <div>{title}</div>
+                    <div>{desc}</div>
+                    <div>{date}</div>                 
+                </li>
+                )}
+            </Draggable>
+
         )
     }
+                
 }
