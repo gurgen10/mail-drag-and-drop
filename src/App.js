@@ -11,7 +11,9 @@ import mailList from './Data/mails.json';
 import { DragDropContext } from 'react-beautiful-dnd';
 
 
-//https://react-dnd.github.io/react-dnd/docs/tutorial#setup
+// https://react-dnd.github.io/react-dnd/docs/tutorial#setup
+// https://egghead.io/courses/beautiful-and-accessible-drag-and-drop-with-react-beautiful-dnd
+// https://github.com/atlassian/react-beautiful-dnd/
 
 
 function App()  {
@@ -32,7 +34,6 @@ function App()  {
       return
     }
 
-
     if(destination.droppableId === source.droppableId &&
       destination.index === source.index) {
         return
@@ -40,11 +41,9 @@ function App()  {
       if(destination.droppableId === 'inbox') {
         const newInbox = Array.from(inbox);
         const dragableMail = newInbox.splice(source.index, 1);
-        
         newInbox.splice(destination.index, 0, ...dragableMail);
-        
-
         setInbox(newInbox)
+
       } else if (destination.droppableId === 'sidebarSent') {
         const newInbox = Array.from(inbox);
         const dragableMail = newInbox.splice(source.index, 1);
@@ -60,18 +59,14 @@ function App()  {
         setSpan(span);
         setInbox(newInbox);
       }
-      
-
-  }
-
-    
+  } 
     return (
       <Context.Provider value={{ inbox, sent, span }}>        
 
         <div className="App">
           <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
           <Router>
-            <SideBar  inbox={inbox} sent={sent} span={span} />
+            <SideBar />
             <Switch>
               <Route exact path="/" component={Home}/>
               <Route path="/inbox" component={Inbox}/>

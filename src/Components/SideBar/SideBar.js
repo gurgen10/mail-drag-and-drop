@@ -21,9 +21,7 @@ export default class SideBar extends Component {
     }
 
     render() {
-         const { activePath } = this.state;
-         const { inbox, sent, span } = this.props
-        
+         const { activePath } = this.state;        
 
         return (
             <div className="sidebar">
@@ -35,54 +33,49 @@ export default class SideBar extends Component {
                 <List disablePadding dense>
                 <Droppable droppableId={'sidebarInbox'}>
                     {provided => (
-                        <div 
-                        ref={provided.innerRef} 
-                        {...provided.droppableProps}>
-                    <ListItem button>
-                        <Link to={{pathname: '/inbox', state: { inbox }}} 
-                            style={activePath === 'inbox' ? { color: 'blue' } : { color: 'black' }}
-                            onClick={(e) => this.handleItemClick(e, 'inbox')}>
-                            <ListItemText>Inbox  <FaInbox /></ListItemText>
-                            {provided.placeholder}
-                        </Link>
-                    </ListItem>                        
-                    
-                        </div>
+                    <div 
+                    ref={provided.innerRef} >
+                        <ListItem button>
+                            <Link to={{ pathname: '/inbox' }} 
+                                style={activePath === 'inbox' ? { color: 'blue' } : { color: 'black' }}
+                                onClick={(e) => this.handleItemClick(e, 'inbox')}>
+                                <ListItemText>Inbox  <FaInbox /></ListItemText>
+                            </Link>
+                        </ListItem>                        
+                        <div style={{display:'none'}}>{provided.placeholder}</div>
+                    </div>
                     )}
                     
                     </Droppable>
                     <Droppable droppableId={'sidebarSent'} >
                     {provided => (
-                        <div 
-                        ref={provided.innerRef} 
-                       type="sidebar">
-                    <ListItem button>
-                    <Link to={{pathname: '/sent', state: { sent }}}
+                    <div 
+                    ref={provided.innerRef}>
+                        <ListItem button>
+                        <Link to={{ pathname: '/sent' }}
                             style={activePath === 'sent' ? { color: 'blue' } : { color: 'black' }}
                             onClick={(e) => this.handleItemClick(e, 'sent')}>
                             <ListItemText>Sent <FaIndent /></ListItemText>
-                        </Link>
-                    </ListItem>                        
-                    {provided.placeholder}
-                        </div>
+                            </Link>
+                        </ListItem>                        
+                        <div style={{display:'none'}}>{provided.placeholder}</div>
+                    </div>
                     )}
                     </Droppable>
                     <Droppable droppableId={'sidebarSpan'} >
                     {provided => (
-                        <div 
-                        ref={provided.innerRef} 
-                        {...provided.droppableProps}>
-                    <ListItem button>
-                    <Link to={{pathname: '/span', state: { span }}}
-                            style={activePath === 'span' ? { color: 'blue' } : { color: 'black' }}
-                            onClick={(e) => this.handleItemClick(e, 'span')}>
-                            <ListItemText>Span <FaCarCrash /></ListItemText>
-                        </Link>
-                    </ListItem>                        
-                    {provided.placeholder}
-                        </div>
+                    <div 
+                    ref={provided.innerRef} >
+                        <ListItem button>
+                            <Link to={{ pathname: '/span' }}
+                                style={activePath === 'span' ? { color: 'blue' } : { color: 'black' }}
+                                onClick={(e) => this.handleItemClick(e, 'span')}>
+                                <ListItemText>Span <FaCarCrash /></ListItemText>
+                            </Link>
+                        </ListItem>                        
+                        <div style={{display:'none'}}>{provided.placeholder}</div>
+                    </div>
                     )}
-                    
                     </Droppable>
                 </List>
             </div>
