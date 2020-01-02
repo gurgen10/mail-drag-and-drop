@@ -31,7 +31,7 @@ export default class SideBar extends Component {
                     <ListItemText> <h1> <FaHome /></h1></ListItemText>
                 </Link>
                 <List disablePadding dense>
-                <Droppable droppableId={'sidebarInbox'}>
+                <Droppable droppableId={'sidebar-inbox'}>
                     {provided => (
                     <div 
                     ref={provided.innerRef} >
@@ -47,7 +47,7 @@ export default class SideBar extends Component {
                     )}
                     
                     </Droppable>
-                    <Droppable droppableId={'sidebarSent'} >
+                    <Droppable droppableId={'sidebar-sent'} >
                     {provided => (
                     <div 
                     ref={provided.innerRef}>
@@ -62,7 +62,7 @@ export default class SideBar extends Component {
                     </div>
                     )}
                     </Droppable>
-                    <Droppable droppableId={'sidebarSpan'} >
+                    <Droppable droppableId={'sidebar-span'} >
                     {provided => (
                     <div 
                     ref={provided.innerRef} >

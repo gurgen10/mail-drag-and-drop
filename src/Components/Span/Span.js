@@ -6,7 +6,6 @@ import Context  from "../../context";
 class MySpan extends Component {
     render() {
         const { span } = this.props;
-        console.log(this.props);
         const mailList = span.map((mail, index)=> {
             return (<MailItem key={mail.id} mail={mail} index={index}/>)
         })
@@ -14,13 +13,13 @@ class MySpan extends Component {
         return (
             <div>
                 <h2>Span</h2>
-                <Droppable droppableId={'span'} isDropDisabled={false}>
+                <Droppable droppableId={'span'} >
                     {provided => (
                         <ul 
-                        ref={provided.innerRef} 
-                        {...provided.droppableProps}>
-                        {span.length ? mailList : (<h3>Span list is empty</h3>)}
-                        {provided.placeholder}
+                            ref={provided.innerRef} 
+                            {...provided.droppableProps}>
+                            {span.length ? mailList : (<h3>Span list is empty</h3>)}
+                            {provided.placeholder}
                         </ul>
                     )}
                 </Droppable>

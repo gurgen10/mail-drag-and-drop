@@ -25,6 +25,35 @@ function App()  {
 
   }
 
+  function updateMailState (mail, newInbox) {
+    if(inbox.indexOf(mail) > -1) {
+      setInbox(newInbox)
+    } else if (sent.indexOf(mail) > -1) {
+      setSent(newInbox)
+    } else if(span.indexOf(mail) > -1) {
+      setSpan (newInbox)
+    }
+  }
+  function getTargetMailList(droppableId) {
+    let newInbox = [];
+    if (droppableId.indexOf('inbox') > -1) {
+       newInbox = Array.from(inbox);
+    } else if (droppableId.indexOf('sent') > -1) {
+      newInbox = Array.from(sent);
+    } else if (droppableId.indexOf('span') > -1) {
+      newInbox = Array.from(span);
+    }
+    
+    return newInbox;
+  }
+  function testConsole() {
+    // console.log('START');
+    // console.log(inbox, 'inbox');
+    // console.log(sent, 'sent');
+    // console.log(span, 'span');
+    // console.log('END');
+  }
+
   const onDragEnd = result => {
     console.log(result);
     
@@ -33,36 +62,68 @@ function App()  {
     if(!destination) {
       return
     }
+    const newInbox = getTargetMailList(source.droppableId);
 
-    if(destination.droppableId === source.droppableId &&
-      destination.index === source.index) {
+    if(destination.droppableId === source.droppableId && destination.index === source.index) {
         return
       }
-      if(destination.droppableId === 'inbox') {
-        const newInbox = Array.from(inbox);
-        const dragableMail = newInbox.splice(source.index, 1);
-        newInbox.splice(destination.index, 0, ...dragableMail);
-        setInbox(newInbox)
 
-      } else if (destination.droppableId === 'sidebarSent') {
-        const newInbox = Array.from(inbox);
-        const dragableMail = newInbox.splice(source.index, 1);
-        sent.push(...dragableMail);
-        setSent(sent);
-        setInbox(newInbox);
+    if(destination.droppableId === source.droppableId &&
+      destination.index !== source.index) {
         
-
-      }else if (destination.droppableId === 'sidebarSpan') {
-        const newInbox = Array.from(inbox);
-        const dragableMail = newInbox.splice(source.index, 1);
-        span.push(...dragableMail);
-        setSpan(span);
-        setInbox(newInbox);
+      const dragableMail = newInbox.splice(source.index, 1);
+      newInbox.splice(destination.index, 0, ...dragableMail);
+      
+      switch(dragableMail[0].status) {
+        case 'inbox': setInbox(newInbox); break;
+        case 'sent': setSent(newInbox); break;
+        case 'span': setSpan(newInbox); break;
+        default:
       }
+    } else if (destination.droppableId === 'sidebar-inbox') {
+      const dragableMail = newInbox.splice(source.index, 1);
+      if(destination.droppableId.indexOf(dragableMail[0].status) > -1 ) {
+        return;
+      }
+      updateMailState(...dragableMail, newInbox)
+      
+      dragableMail[0].status = 'inbox';
+      inbox.push(...dragableMail);
+      setInbox(inbox);
+      testConsole();
+      console.log(newInbox, 'New Inbox');
+
+    } else if (destination.droppableId === 'sidebar-sent') {
+      const dragableMail = newInbox.splice(source.index, 1);
+      if(destination.droppableId.indexOf(dragableMail[0].status) > -1 ) {
+        return;
+      }
+      updateMailState(...dragableMail, newInbox)
+      
+      dragableMail[0].status = 'sent';
+      sent.push(...dragableMail);
+      setSent(sent);
+      testConsole();
+      console.log(newInbox, 'New Inbox');
+
+    } else if (destination.droppableId === 'sidebar-span') {
+      const dragableMail = newInbox.splice(source.index, 1);
+      
+      if(destination.droppableId.indexOf(dragableMail[0].status) > -1 ) {
+        return;
+      }
+      updateMailState(...dragableMail, newInbox)
+      
+      dragableMail[0].status = 'span';
+      span.push(...dragableMail);
+      setSpan(span);
+      testConsole()
+      console.log(newInbox, 'New Inbox');
+
+    } 
   } 
     return (
-      <Context.Provider value={{ inbox, sent, span }}>        
-
+      <Context.Provider value={{ inbox, sent, span }}>
         <div className="App">
           <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
           <Router>

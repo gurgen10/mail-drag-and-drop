@@ -17,12 +17,12 @@ export default class MailItem extends Component {
     }
     render() {
         
-        const {id, title, desc, date } = this.props.mail
+        const {id, title, desc, date, status } = this.props.mail
         
         return (
             
             <Draggable 
-                draggableId={id} 
+                draggableId={id + " " +  status} 
                 index={this.props.index}
                 >
                 {provided => (

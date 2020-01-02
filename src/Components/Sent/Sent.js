@@ -7,7 +7,6 @@ import { Droppable } from "react-beautiful-dnd";
 class MySent extends Component {
     render() {
         const  { sent }  = this.props;
-        console.log(this.props, 'sent.js');
         const mailList = sent.map((mail, index)=> {
             return (<MailItem key={mail.id} mail={mail} index={index}/>)
         })
@@ -16,7 +15,7 @@ class MySent extends Component {
             
             <div>
                 <h2>Sent</h2>
-                <Droppable droppableId={'sent'} isDropDisabled={false}>
+                <Droppable droppableId={'sent'} >
                     {provided => (
                         <ul 
                         ref={provided.innerRef} 

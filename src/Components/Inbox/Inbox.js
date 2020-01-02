@@ -13,7 +13,7 @@ class MyInbox extends Component {
         return ( 
             <>
                 <h2>Inbox</h2>
-                <Droppable droppableId={'inbox'} isDropDisabled={false}>
+                <Droppable droppableId={'inbox'}>
                     {provided => (
                         <ul 
                         ref={provided.innerRef} 
