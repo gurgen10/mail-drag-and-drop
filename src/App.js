@@ -32,67 +32,69 @@ function App()  {
     }
   }
   function getTargetMailList(droppableId) {
-    let newInbox = [];
+    let newBox = [];
     if (droppableId.indexOf('inbox') > -1) {
-       newInbox = Array.from(inbox);
+      newBox = Array.from(inbox);
     } else if (droppableId.indexOf('sent') > -1) {
-      newInbox = Array.from(sent);
+      newBox = Array.from(sent);
     } else if (droppableId.indexOf('span') > -1) {
-      newInbox = Array.from(span);
+      newBox = Array.from(span);
     }
     
-    return newInbox;
+    return newBox;
   }
   
   const onDragEnd = result => {
+    console.log(result);
+    
     const { destination, source } = result;
 
     if(!destination) {
       return
     }
-    const newInbox = getTargetMailList(source.droppableId);
+    const sourceBox = getTargetMailList(source.droppableId);
 
     if(destination.droppableId === source.droppableId && destination.index === source.index) {
         return
       }
 
     if(destination.droppableId === source.droppableId && destination.index !== source.index) {
-      const dragableMail = newInbox.splice(source.index, 1);
-      newInbox.splice(destination.index, 0, ...dragableMail);
+      const dragableMail = sourceBox.splice(source.index, 1);
+      sourceBox.splice(destination.index, 0, ...dragableMail);
       
       switch(dragableMail[0].status) {
-        case 'inbox': setInbox(newInbox); break;
-        case 'sent': setSent(newInbox); break;
-        case 'span': setSpan(newInbox); break;
+        case 'inbox': setInbox(sourceBox); break;
+        case 'sent': setSent(sourceBox); break;
+        case 'span': setSpan(sourceBox); break;
         default:
       }
     } else if (destination.droppableId === 'sidebar-inbox') {
-      const dragableMail = newInbox.splice(source.index, 1);
+      const dragableMail = sourceBox.splice(source.index, 1);
       if(destination.droppableId.indexOf(dragableMail[0].status) > -1 ) {
         return;
       }
-      updateMailState(...dragableMail, newInbox)
+      updateMailState(...dragableMail, sourceBox)
       
       dragableMail[0].status = 'inbox';
       inbox.push(...dragableMail);
       setInbox(inbox);
     } else if (destination.droppableId === 'sidebar-sent') {
-      const dragableMail = newInbox.splice(source.index, 1);
+      const dragableMail = sourceBox.splice(source.index, 1);
       if(destination.droppableId.indexOf(dragableMail[0].status) > -1 ) {
         return;
       }
-      updateMailState(...dragableMail, newInbox)
+      updateMailState(...dragableMail, sourceBox)
       
       dragableMail[0].status = 'sent';
       sent.push(...dragableMail);
       setSent(sent);
     } else if (destination.droppableId === 'sidebar-span') {
-      const dragableMail = newInbox.splice(source.index, 1);
+      const dragableMail = sourceBox.splice(source.index, 1);
       
       if(destination.droppableId.indexOf(dragableMail[0].status) > -1 ) {
         return;
       }
-      updateMailState(...dragableMail, newInbox)
+      updateMailState(...dragableMail, sourceBox)
       
       dragableMail[0].status = 'span';
       span.push(...dragableMail);
