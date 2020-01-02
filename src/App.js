@@ -10,12 +10,9 @@ import Sent from './Components/Sent';
 import mailList from './Data/mails.json';
 import { DragDropContext } from 'react-beautiful-dnd';
 
-
 // https://react-dnd.github.io/react-dnd/docs/tutorial#setup
 // https://egghead.io/courses/beautiful-and-accessible-drag-and-drop-with-react-beautiful-dnd
 // https://github.com/atlassian/react-beautiful-dnd/
-
-
 function App()  {
   const [inbox, setInbox] = useState(mailList);
   const [sent, setSent] = useState([]);
@@ -46,17 +43,8 @@ function App()  {
     
     return newInbox;
   }
-  function testConsole() {
-    // console.log('START');
-    // console.log(inbox, 'inbox');
-    // console.log(sent, 'sent');
-    // console.log(span, 'span');
-    // console.log('END');
-  }
-
+  
   const onDragEnd = result => {
-    console.log(result);
-    
     const { destination, source } = result;
 
     if(!destination) {
@@ -68,9 +56,7 @@ function App()  {
         return
       }
 
-    if(destination.droppableId === source.droppableId &&
-      destination.index !== source.index) {
-        
+    if(destination.droppableId === source.droppableId && destination.index !== source.index) {
       const dragableMail = newInbox.splice(source.index, 1);
       newInbox.splice(destination.index, 0, ...dragableMail);
       
@@ -90,9 +76,6 @@ function App()  {
       dragableMail[0].status = 'inbox';
       inbox.push(...dragableMail);
       setInbox(inbox);
-      testConsole();
-      console.log(newInbox, 'New Inbox');
-
     } else if (destination.droppableId === 'sidebar-sent') {
       const dragableMail = newInbox.splice(source.index, 1);
       if(destination.droppableId.indexOf(dragableMail[0].status) > -1 ) {
@@ -103,9 +86,6 @@ function App()  {
       dragableMail[0].status = 'sent';
       sent.push(...dragableMail);
       setSent(sent);
-      testConsole();
-      console.log(newInbox, 'New Inbox');
-
     } else if (destination.droppableId === 'sidebar-span') {
       const dragableMail = newInbox.splice(source.index, 1);
       
@@ -117,9 +97,6 @@ function App()  {
       dragableMail[0].status = 'span';
       span.push(...dragableMail);
       setSpan(span);
-      testConsole()
-      console.log(newInbox, 'New Inbox');
-
     } 
   } 
     return (
