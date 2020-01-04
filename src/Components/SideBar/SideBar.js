@@ -10,7 +10,7 @@ import './SideBar.css';
 
 export default class SideBar extends Component {
     state = {
-        activePath: 'inbox',
+        activePath: '/',
     }
     handleItemClick(e, i) {
         this.setState(state => {
@@ -26,7 +26,7 @@ export default class SideBar extends Component {
         return (
             <div className="sidebar">
                 <Link to= '/'
-                    style={{ color: 'green' }}
+                    style={activePath === '/' ? { color: 'green' } : { color: 'black' }}
                     onClick={(e) => this.handleItemClick(e, '')}>
                     <ListItemText> <h1> <FaHome /></h1></ListItemText>
                 </Link>
