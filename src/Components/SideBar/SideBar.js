@@ -27,7 +27,7 @@ export default class SideBar extends Component {
             <div className="sidebar">
                 <Link to= '/'
                     style={activePath === '/' ? { color: 'green' } : { color: 'black' }}
-                    onClick={(e) => this.handleItemClick(e, '')}>
+                    onClick={(e) => this.handleItemClick(e, '/')}>
                     <ListItemText> <h1> <FaHome /></h1></ListItemText>
                 </Link>
                 <List disablePadding dense>
