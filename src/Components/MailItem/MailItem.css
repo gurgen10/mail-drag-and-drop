@@ -8,7 +8,7 @@
     justify-content: flex-start;
 }
 .mail-item:hover {
-    cursor: pointer;
+    cursor: move;
     background-color: blue;
     color: #fff;
     list-style-type:none;
