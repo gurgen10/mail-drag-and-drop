@@ -17,7 +17,7 @@ export default class Home extends Component {
                 <Pre>
                     Hi dear user.
                     You can reorder your mail list just dragging and dropping them and 
-                    you can move mail items into another mail boxes by draging and dropping mail items on specific box.
+                    you can move mail items into another mail boxes by dragging and dropping mail items on specific box.
                 </Pre>
             </div>
         )
